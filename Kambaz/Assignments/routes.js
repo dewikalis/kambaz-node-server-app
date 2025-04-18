@@ -8,23 +8,24 @@ export default function AssignmentRoutes(app) {
   });
 
   app.post("/api/assignments", async (req, res) => {
-    const { title, course, description, points, due, available, until } = req.body;
+    const { title, course, from, until, description, points, due } = req.body;
 
-    const status = await assignmentsDao.addAssignment({ title, course, description, points, due, available, until })
+    const status = await assignmentsDao.addAssignment({ title, course, from, until, description, points, due })
     res.send(status)
   })
 
   app.delete("/api/assignments/:assignmentId", async (req, res) => {
     const { assignmentId } = req.params;
-    const status = assignmentsDao.deleteAssignment(assignmentId)
+    console.log('backend assignmentId', assignmentId)
+    const status = await assignmentsDao.deleteAssignment(assignmentId)
     res.send(status)
   })
 
   app.put("/api/assignments/:assignmentId", async (req, res) => {
     const { assignmentId } = req.params;
-    const { title, course, description, points, due, available, until } = req.body;
+    const { title, course, from, until, description, points, due } = req.body;
 
-    const status = await assignmentsDao.updateAssignment(assignmentId, { title, course, description, points, due, available, until })
+    const status = await assignmentsDao.updateAssignment(assignmentId, { title, course, from, until, description, points, due })
     res.send(status)
   })
 

@@ -12,7 +12,6 @@ export default function EnrollmentsRoutes(app) {
   });
 
   app.post("/api/enrollments/current", async (req, res) => {
-    console.log(req.session)
     const currentUser = req.session["currentUser"];
     const { courseId } = req.body;
     const enrollments = await enrollmentsDao.toggleUserInCourse(currentUser._id, courseId);
